@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESP Quiz — Gaano Ka Ka-tao?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #FBF8DD;
+  color: #1e1e1e;
+  font-family: 'Outfit', sans-serif;
+}
+
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.left {
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #FBF8DD;
+}
+
+.logo {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 32px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+h1 em {
+  color: #3a6b8a;
+  font-style: normal;
+}
+
+.sub {
+  font-size: 16px;
+  color: #888;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+}
+
+.right {
+  background: #C0D6E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.card {
+  background: #FBF8DD;
+  border-radius: 14px;
+  padding: 36px;
+  width: 320px;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.card-sub {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+label {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #b8c9d5;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  background: white;
+  margin-bottom: 14px;
+  transition: border-color .2s;
+}
+
+input[type="text"]:focus {
+  border-color: #3a6b8a;
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #3a6b8a;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn:hover { background: #2d5570; }
+
+@media (max-width: 640px) {
+  .wrap { grid-template-columns: 1fr; }
+  .left { padding: 48px 28px 32px; }
+  h1 { font-size: 48px; }
+  .right { padding: 28px; }
+  .card { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="left">
+    <div class="logo">Edukasyon sa Pagkatao</div>
+    <h1>Gaano ka<br><em>ka-tao?</em></h1>
+    <p class="sub">A reflection on empathy,<br>character &amp; compassion.</p>
+  </div>
+  <div class="right">
+    <div class="card">
+      <div class="card-title">Let's begin.</div>
+      <div class="card-sub">Enter your name and answer honestly.</div>
+      <form method="POST" action="/">
+        <label for="nm">Your Name</label>
+        <input type="text" id="nm" name="name" placeholder="e.g. Maria" maxlength="40" autocomplete="off">
+        <button type="submit" class="btn">Start the Quiz →</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

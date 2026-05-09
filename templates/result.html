@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESP Quiz — {{.Label}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #C0D6E8;
+  font-family: 'Outfit', sans-serif;
+  color: #1e1e1e;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page {
+  max-width: 520px;
+  width: 100%;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.tag {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #3a5a6a;
+  margin-bottom: 24px;
+}
+
+.emoji {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 14px;
+  color: #4a6a7a;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #1e3a4a;
+  margin-bottom: 24px;
+}
+
+.ring-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.ring-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pct {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1e3a4a;
+}
+
+.pct-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #3a5a6a;
+}
+
+.desc {
+  font-size: 15px;
+  color: #2a4a5a;
+  line-height: 1.75;
+  max-width: 380px;
+  margin: 0 auto 32px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-primary {
+  padding: 11px 24px;
+  border-radius: 8px;
+  border: none;
+  background: #1e3a4a;
+  color: #FBF8DD;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-primary:hover { background: #162c3a; }
+
+.btn-secondary {
+  padding: 11px 24px;
+  border-radius: 8px;
+  border: 1.5px solid #1e3a4a;
+  background: #FBF8DD;
+  color: #1e3a4a;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-secondary:hover { background: #eef5e0; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="tag">Edukasyon sa Pagkatao · Results</div>
+  <div class="emoji">{{.Emoji}}</div>
+  <div class="name">{{.Name}}</div>
+  <div class="label">{{.Label}}</div>
+  <div class="ring-wrap">
+    <svg width="120" height="120" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(30,58,74,0.2)" stroke-width="6"/>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#1e3a4a" stroke-width="6"
+        stroke-dasharray="314" stroke-dashoffset="{{.DashOffset}}"
+        stroke-linecap="round" transform="rotate(-90 60 60)"/>
+    </svg>
+    <div class="ring-inner">
+      <span class="pct">{{.Percent}}%</span>
+      <span class="pct-label">Score</span>
+    </div>
+  </div>
+  <p class="desc">{{.Desc}}</p>
+  <div class="actions">
+    <a href="/" class="btn-primary">Take Again</a>
+    <a href="/" class="btn-secondary">Home</a>
+  </div>
+</div>
+</body>
+</html>

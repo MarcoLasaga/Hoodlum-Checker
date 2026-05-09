@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESP Quiz — Q{{.Number}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #FBF8DD;
+  color: #1e1e1e;
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 14px;
+}
+
+.counter span {
+  color: #3a6b8a;
+  font-weight: 600;
+}
+
+.progress-track {
+  height: 2px;
+  background: #d4c8a0;
+  border-radius: 2px;
+  margin-bottom: 36px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #3a6b8a;
+  border-radius: 2px;
+  transition: width .3s;
+}
+
+.lang-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.lang-btn {
+  padding: 5px 16px;
+  font-size: 12px;
+  border-radius: 20px;
+  border: 1.5px solid #3a6b8a;
+  background: #FBF8DD;
+  color: #3a6b8a;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  transition: background .15s, color .15s;
+}
+
+.lang-btn.on {
+  background: #3a6b8a;
+  color: #FBF8DD;
+}
+
+.q-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  line-height: 1.45;
+  text-align: center;
+  color: #1e1e1e;
+  margin-bottom: 32px;
+}
+
+.q-text.hidden {
+  display: none;
+}
+
+.opt {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  border: 1.5px solid #b0c8d8;
+  border-radius: 10px;
+  background: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+  display: block;
+}
+
+.opt:hover {
+  border-color: #3a6b8a;
+  transform: translateY(-1px);
+}
+
+.opt.picked {
+  border-color: #3a6b8a;
+  background: #C0D6E8;
+}
+
+.letter {
+  color: #3a6b8a;
+  font-weight: 600;
+  margin-right: 10px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <span class="name-tag">{{.Name}}</span>
+    <span class="counter"><span>{{.Number}}</span> / {{.Total}}</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" style="width: {{.Progress}}%;"></div>
+  </div>
+  <div class="lang-row">
+    <button type="button" class="lang-btn on" id="btn-en" onclick="lang('en')">English</button>
+    <button type="button" class="lang-btn" id="btn-tl" onclick="lang('tl')">Filipino</button>
+  </div>
+  <div class="q-text" id="q-en">{{.Question.EN}}</div>
+  <div class="q-text hidden" id="q-tl">{{.Question.TL}}</div>
+  <form method="POST" action="/quiz" id="qform">
+    <input type="hidden" name="answer" id="ans" value="-1">
+    {{range .Question.Options}}
+    <button type="button" class="opt" onclick="pick(this, {{.Idx}})">
+      <span class="letter">{{.Letter}}</span>
+      <span>{{.Text}}</span>
+    </button>
+    {{end}}
+  </form>
+</div>
+<script>
+function lang(l) {
+  const en = l === 'en';
+  const qEn = document.getElementById('q-en');
+  const qTl = document.getElementById('q-tl');
+
+  qEn.classList.toggle('hidden', !en);
+  qTl.classList.toggle('hidden', en);
+
+  document.getElementById('btn-en').className = 'lang-btn' + (en ? ' on' : '');
+  document.getElementById('btn-tl').className = 'lang-btn' + (en ? '' : ' on');
+
+  localStorage.setItem('ql', l);
+}
+
+if (localStorage.getItem('ql') === 'tl') {
+  lang('tl');
+}
+
+let done = false;
+
+function pick(btn, idx) {
+  if (done) return;
+  done = true;
+  btn.classList.add('picked');
+  document.querySelectorAll('.opt').forEach(b => b.disabled = true);
+  document.getElementById('ans').value = idx;
+  setTimeout(() => document.getElementById('qform').submit(), 200);
+}
+</script>
+</body>
+</html>
